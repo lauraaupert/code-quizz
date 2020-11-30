@@ -1,0 +1,35 @@
+/* Top row */
+#high-scores {
+    text-align: left;
+}
+#countdown {
+    text-align: right;
+}
+
+/*.row {
+    flex-direction: row;
+    justify-content: space-between;
+    justify-content: center;
+    align-content: space-between;
+}*/
+
+/*Content*/
+.content {
+    text-align: center;
+    margin-top: 10%;
+}
+
+/*Form*/
+.input-group {
+    justify-content: center;
+}
+
+/*Answers*/
+.hovering:hover {
+    background-color: black;
+    color: white;
+    padding: .2cm;
+    justify-content: center;
+    margin-right: 35%;
+    margin-left: 35%;
+}
