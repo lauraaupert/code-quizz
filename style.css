@@ -33,3 +33,11 @@
     margin-right: 35%;
     margin-left: 35%;
 }
+
+#done {
+    margin-top: 40px;
+}
+
+button {
+    margin: 10px;
+}

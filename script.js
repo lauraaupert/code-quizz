@@ -17,9 +17,13 @@ var possibilities = document.querySelector("#answers");
 var title = document.querySelector("#title");
 var done = document.querySelector("#done");
 var viewScore = document.querySelector("#view-score");
+var viewHighScores = document.querySelector("#view-high-scores");
 
 hidden.style.visibility = "hidden"
 viewScore.style.visibility = "hidden"
+answers.style.visibility = "hidden"
+done.style.visibility = "hidden"
+
 
 //add a restart button
 
@@ -84,6 +88,7 @@ function scoreCount() {
 
 function firstQuestion() {
 console.log(questions[0].answers[0].answer)
+answers.style.visibility = "visible"
 
 i = 0
     question.textContent = "Question " + questionNum;
@@ -136,7 +141,8 @@ function secondQuestion(){
 
     //answers.addEventListener("click", function(event) {
                 i = 1;
-        question.textContent = "Question " + questionNum++;
+                questionNum++;
+        question.textContent = "Question " + questionNum;
         center.textContent = questions[i].q; 
         answerA.innerHTML = questions[i].answers[0].option; 
         answerB.innerHTML = questions[i].answers[1].option; 
@@ -189,15 +195,21 @@ function thirdQuestion() {
 
 function endGame() {
     hidden.style.visibility = "hidden"
+    answers.style.visibility = "hidden";
+    done.style.visibility = "hidden";
+
     done.textContent = "All done!";
-    done.setAttribute("style", "text-align: center; color: red;");
+    done.setAttribute("style", "text-align: center; color: black;");
 
     title.append(done);
     var para = document.createElement("p");
     done.append(para);
     viewScore.setAttribute("style", "text-align: center;")
 
+    countdown.style.visibility = "hidden";
+
     viewScore.addEventListener("click", displayScore)
+
 
 }
 
@@ -219,15 +231,21 @@ function displayScore() {
 
 }
 
+function displayHighScores () {
+
+    localStorage.setItem("initials", initials);
+
+    localStorage.setItem("scores", score);
+
+}
+
 function setSeconds() {
 
 var timerInterval = setInterval(function() {
     seconds--;
     countdown.textContent = "Time left: " + seconds + " seconds";
 
-    //if(seconds > 19) {
-       // game()
-    //}
+
     if (seconds === 0) {
         clearInterval(timerInterval);
         center.textContent = "Game Over!";
