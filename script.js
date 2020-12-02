@@ -16,13 +16,19 @@ var answerC = document.querySelector("#answer-c");
 var possibilities = document.querySelector("#answers");
 var title = document.querySelector("#title");
 var done = document.querySelector("#done");
+var displayAllScores = document.querySelector(".end-stuff");
 var viewScore = document.querySelector("#view-score");
 var viewHighScores = document.querySelector("#view-high-scores");
+var initials = localStorage.getItem("initials");
+var totalScore = localStorage.getItem("score");
+var displayInitials = document.querySelector("#col-initials");
+var displayTotal = document.querySelector("#col-scores");
 
 hidden.style.visibility = "hidden"
-viewScore.style.visibility = "hidden"
+displayAllScores.style.visibility = "hidden"
 answers.style.visibility = "hidden"
 done.style.visibility = "hidden"
+viewScore.style.visibility = "hidden"
 
 
 //add a restart button
@@ -41,8 +47,9 @@ function renderInitials() {
  
 
   }
-
-    localStorage.setItem("initials", initials);
+  var initials = localStorage.getItem("initials");
+  localStorage.setItem("initials", initials);
+  localStorage.setItem("score", score)
 
 
 function minusSeconds() {
@@ -194,14 +201,15 @@ function thirdQuestion() {
 
 
 function endGame() {
-    hidden.style.visibility = "hidden"
+    hidden.style.visibility = "hidden";
     answers.style.visibility = "hidden";
-    done.style.visibility = "hidden";
+    displayAllScores.append(hidden)
+    displayAllScores.append(answers)
 
     done.textContent = "All done!";
     done.setAttribute("style", "text-align: center; color: black;");
 
-    title.append(done);
+    //title.append(done);
     var para = document.createElement("p");
     done.append(para);
     viewScore.setAttribute("style", "text-align: center;")
@@ -215,11 +223,12 @@ function endGame() {
 
 function displayScore() {
     done.style.visibility = "hidden"
-    viewScore.style.visibility = "hidden"
+    //viewScore.style.visibility = "hidden"
     var initials = localStorage.getItem("initials");
     localStorage.setItem("initials", initials);
     var para = document.createElement("p");
     title.append(para);
+    viewScore.style.visibility = "hidden"
 
     var disScore = document.createElement("h4");
 
@@ -228,14 +237,31 @@ function displayScore() {
     disScore.setAttribute("style", "text-align: center; color: black;");
     disScore.innerHTML = initials + ": " + score;
 
+    viewHighScores.style.visibility = "visible";
+    viewHighScores.innerHTML = "Display High Scores";
+    
+    viewHighScores.addEventListener("click", displayHighScores);
+    localStorage.getItem("score")
+
 
 }
 
 function displayHighScores () {
+    displayInitials = localStorage.setItem("initials", initials);
+    totalScore = localStorage.setItem("score", score);
+    
 
-    localStorage.setItem("initials", initials);
+    displayInitials.style.visibility = "visible";
+    displayTotal.style.visibility = "visible";
+
+    displayInitials.textContent = initials;
+    totalScore.textContent = score
 
     localStorage.setItem("scores", score);
+    var initials = localStorage.getItem("initials");
+    localStorage.setItem("initials", initials);
+    localStorage.setItem("score", score)
+  
 
 }
 
