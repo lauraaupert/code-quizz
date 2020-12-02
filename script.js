@@ -8,39 +8,65 @@ var questionNum = 1;
 var msgDiv = document.querySelector("#msg");
 var score = 0;
 var submitBtn = document.querySelector("#submit");
-var form = document.querySelector(".card")
-var hidden = document.querySelector("#hidden")
-var answerA = document.querySelector("#answer-a")
-var answerB = document.querySelector("#answer-b")
-var answerC = document.querySelector("#answer-c")
-var answers = document.querySelector("#answers")
-
+var form = document.querySelector(".card");
+var hidden = document.querySelector("#hidden");
+var answerA = document.querySelector("#answer-a");
+var answerB = document.querySelector("#answer-b");
+var answerC = document.querySelector("#answer-c");
+var possibilities = document.querySelector("#answers");
+var title = document.querySelector("#title");
+var done = document.querySelector("#done");
+var viewScore = document.querySelector("#view-score");
 
 hidden.style.visibility = "hidden"
+viewScore.style.visibility = "hidden"
+
+//add a restart button
+
+function renderInitials() {
+    // to store the user's initials (must create a form first)
+       var initials = localStorage.getItem("initials");
+
+       if (!initials) {
+           return;
+       }
+
+    question.textContent = "Welcome " + initials + "!"
+    form.style.display = "block"
+    form.style.display = "none"
+ 
+
+  }
+
+    localStorage.setItem("initials", initials);
+
+
 function minusSeconds() {
     seconds-10;
 }
 var questions = [
-    { q: "How do you call a function in Javascript?", a: "()", b: "[]", c: "{}" },
-    { q: "How do you link Bootstrap in your html file?", a: "Add the link inside the head", b: "Add the link after the body", c: "Go fetch me an apple" },
-    { q: "How do you insert a timer?", a: "Declare var count = 0", b: "setInterval(function)", c: "Use jQuery" },
+    { q: "How do you call a function in Javascript?", 
+        answers: [
+         {option:"()", answer: true},
+         {option:"[]", answer: false},
+         {option:"{}", answer: false},
+        ]
+    },
+    { q: "How do you link Bootstrap in your html file?", 
+        answers: [
+            {option: "Add the link after the body", answer: false},
+            {option:"Add the link inside the head", answer: true},
+            {option: "Got fetch me an apple", answer: false} 
+        ]
+    },
+    { q: "How do you insert a timer?", 
+        answers: [
+            {option: "Declare var count = 0", answer: false},
+            {option: "setInterval(function)", answer: true},
+            {option: "Use CSS styling", answer: false},
+        ]
+    }
   ];
-
-  //for (var i = 0; i < questions.length; i++) {
-    // Display current question to user and ask OK/Cancel
-    //var answer = confirm(questions[i].q);
-
-    // Compare answers
-    //if ((answer === true && questions[i].a === "t") ||
-      //(answer === false && questions[i].a === "f")) {
-      // Increase score
-      //score++;
-      //alert("Correct!");
-    //}
-    //else {
-      //alert("Wrong!");
-    //}
-  //}
 
 
 
@@ -48,163 +74,150 @@ var questions = [
 center.textContent = "Click the start button when you are ready. You will have 300 seconds to answer 5 questions."
 countdown.textContent = "Time left: " + seconds + " seconds";
 
+function scoreCount() {
+    score++;
+    console.log(score)
+    score = localStorage.getItem("score");
 
+}
     
 
-function game() {
- /*   questionOne();
-}
-function questionOne() {
-i = 0;
+function firstQuestion() {
+console.log(questions[0].answers[0].answer)
+
+i = 0
     question.textContent = "Question " + questionNum;
     center.textContent = questions[i].q; 
-    answerA.textContent = questions[i].a; 
-    answerB.textContent = questions[i].b; 
-    answerC.textContent = questions[i].c;
-
+    answerA.innerHTML = questions[i].answers[0].option; 
+    answerB.innerHTML = questions[i].answers[1].option; 
+    answerC.innerHTML = questions[i].answers[2].option;
     
-    answerA.addEventListener("click", function() {
-        score++;
-        questionNum++; 
-        i++;
-        console.log(score);
+    console.log(questions[i].answers)
 
-        question.textContent = "Question " + questionNum
+        answerA.addEventListener("click", () => {
+            score++;
+            console.log(score)
 
-        center.textContent = questions[i].q; 
-        answerA.textContent = questions[i].a; 
-        answerB.textContent = questions[i].b; 
-        answerC.textContent = questions[i].c;
-        
-    })
-    answerB.addEventListener("click", function(){
-        minusSeconds();
-        questionNum++; 
-        i++;
+            secondQuestion();
+        })
+        answerB.addEventListener("click", () => {
+            minusSeconds();
+            secondQuestion();
+            });
+        answerC.addEventListener("click", () => {
+            minusSeconds();
+            secondQuestion();
+            });
 
-        question.textContent = "Question " + questionNum
+        /*answerA.onclick = () => {
+            if (questions[i].answers[0].answer === true) {
+            score++;
+            console.log(score);
+        } else if (questions[i].answers[0].answer === false) {
+            console.log("false")
+        }
+    }
 
-        center.textContent = questions[i].q; 
-        answerA.textContent = questions[i].a; 
-        answerB.textContent = questions[i].b; 
-        answerC.textContent = questions[i].c;
+        answerB.onclick = () => {
+            score--;
+            console.log(score)
 
-    })
+        }*/
+    
+    
 }
 
-    
-    //center.textContent = questions[i].q; 
-    //answerA.textContent = questions[i].a; 
-    //answerB.textContent = questions[i].b; 
-    //answerC.textContent = questions[i].c;
-    //changeQuestion()
-////}*/
 
 
-i = 0;
-    question.textContent = "Question " + questionNum;
-    center.textContent = questions[i].q; 
-    answerA.textContent = questions[i].a; 
-    answerB.textContent = questions[i].b; 
-    answerC.textContent = questions[i].c;
-    changeQuestion()
-}
 
-function changeQuestion(){
+function secondQuestion(){
 
     //change questions
 
-    answers.addEventListener("click", function(event) {
-                i++;
-        questionNum++;
-        question.textContent = "Question " + questionNum
-
+    //answers.addEventListener("click", function(event) {
+                i = 1;
+        question.textContent = "Question " + questionNum++;
         center.textContent = questions[i].q; 
-        answerA.textContent = questions[i].a; 
-        answerB.textContent = questions[i].b; 
-        answerC.textContent = questions[i].c;
+        answerA.innerHTML = questions[i].answers[0].option; 
+        answerB.innerHTML = questions[i].answers[1].option; 
+        answerC.innerHTML = questions[i].answers[2].option;
 
-    })
+        answerA.addEventListener("click", () => {
+                minusSeconds();
+                thirdQuestion();
+                });
+            answerB.addEventListener("click", () => {
+                score++;
+                console.log(score)
+
+                thirdQuestion();
+                })
+                
+            answerC.addEventListener("click", () => {
+                minusSeconds();
+                thirdQuestion();
+                });
+        
+
+
+    
 }
 
-function countScore(event) {
-if (i = 0) {
-        var answerA = event.target;
-        if (answerA === true) {
+function thirdQuestion() {
+    i = 2;
+
+    question.textContent = "Question " + questionNum++;
+    center.textContent = questions[i].q; 
+    answerA.innerHTML = questions[i].answers[0].option; 
+    answerB.innerHTML = questions[i].answers[1].option; 
+    answerC.innerHTML = questions[i].answers[2].option;
+
+
+    answerA.addEventListener("click",endGame);
+    answerB.addEventListener("click", () => {
         score++;
         console.log(score)
-        }
-} 
-    
 
-if (i = 1) {
-    answerA = event.target;
-    score++;
-    console.log(score)
+        endGame();
+    });
+    answerC.addEventListener("click",endGame);
 
-} 
-if (i = 2) {
-    answerB = event.target;
-    score++;
-    console.log(score);
-}
 
-        
-    
 
 }
 
 
+function endGame() {
+    hidden.style.visibility = "hidden"
+    done.textContent = "All done!";
+    done.setAttribute("style", "text-align: center; color: red;");
 
-//this is where it fucks up all the way to 
-    //answerA.addEventListener("click", countScore)
-    //answerB.addEventListener("click", addScore)
+    title.append(done);
+    var para = document.createElement("p");
+    done.append(para);
+    viewScore.setAttribute("style", "text-align: center;")
 
+    viewScore.addEventListener("click", displayScore)
 
-//count score
-//function countScore(event) {
-    //var correctA = event.answerA
-   // if (i < 2) {
-       // score++;
-       //if (correctA === true) {
-           //score++;
-       
-        //console.log(score)
-       
-    //} 
+}
 
-//}*/
+function displayScore() {
+    done.style.visibility = "hidden"
+    viewScore.style.visibility = "hidden"
+    var initials = localStorage.getItem("initials");
+    localStorage.setItem("initials", initials);
+    var para = document.createElement("p");
+    title.append(para);
 
-//function addScore(event) {
-   // if (i = 2) {
-     //   score++;
-     //   console.log(score)
-   // }
-//}
-
-//here is the end of the fuck up
-
-//and append correct
+    var disScore = document.createElement("h4");
 
 
+    title.append(disScore);
+    disScore.setAttribute("style", "text-align: center; color: black;");
+    disScore.innerHTML = initials + ": " + score;
 
 
-        //center.textContent = questions[i++].q 
-        //answerA.textContent = questions[i++].a 
-        //answerB.textContent = questions[i++].b 
-        // answerC.textContent = questions[i++].c
-    
-
-
-
-
-
-    
-
-
-
-// How do you insert a timer? setInterval(function)
-
+}
 
 function setSeconds() {
 
@@ -222,13 +235,13 @@ var timerInterval = setInterval(function() {
         answerB.style.display = "none"
         answerC.style.display = "none"
 
-        //to store the user's score
-        var score = localStorage.getItem("score");
-    }
+    } 
 }, 1000);
  
 }
 
+        //to store the user's score
+        var score = localStorage.getItem("score");
 
 
 
@@ -236,7 +249,7 @@ var timerInterval = setInterval(function() {
 
 
 start.addEventListener("click", function() {
-    game()
+    firstQuestion()
     setSeconds()
     // hide start button
     start.style.display = "none"
