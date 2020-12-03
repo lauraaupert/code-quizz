@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="./style.css">
     <title>Code Quizz</title>
 </head>
@@ -49,17 +50,17 @@
         
         <button type="button" id="start" class="btn btn-warning">Start Quizz</button>
         </div>
-        
+
         <div>
           <h4 id="done">All done!</h4>
           <div><button type="button" id="view-score" class="btn btn-warning">View Score</button></div>
         </div>
           <div class="end-stuff" id="display-score">
-          <div><button type="button" id="view-high-scores" class="btn btn-warning">View Score</button></div>
-          <div class="row" id="high-scores-display">
-            <div class="col-md-6" id="col-initials"></div>
-            <div class="col-md-6" id="col-scores"></div>
+          <div><button type="button" id="view-high-scores" class="btn btn-warning">Display High Scores</button></div>
+          <div id="high-scores-display">
           </div>
+          <div><button type="button" id="restart-button" class="btn btn-warning">Restart</button></div>
+        </div>
         </div>
 
     </div>

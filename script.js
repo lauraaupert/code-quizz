@@ -1,3 +1,6 @@
+$(document).ready(function() {
+
+
 var countdown = document.querySelector("#countdown");
 var highScores = document.querySelector("#high-scores");
 var button = document.getElementById("#start");
@@ -21,17 +24,21 @@ var viewScore = document.querySelector("#view-score");
 var viewHighScores = document.querySelector("#view-high-scores");
 var initials = localStorage.getItem("initials");
 var totalScore = localStorage.getItem("score");
-var displayInitials = document.querySelector("#col-initials");
-var displayTotal = document.querySelector("#col-scores");
+var highScoreDisplay = document.querySelector("#high-scores-display");
+var restartBtn = document.querySelector("#restart-button");
 
 hidden.style.visibility = "hidden"
-displayAllScores.style.visibility = "hidden"
-answers.style.visibility = "hidden"
+//displayAllScores.style.visibility = "hidden"
+possibilities.style.visibility = "hidden"
 done.style.visibility = "hidden"
 viewScore.style.visibility = "hidden"
 
 
 //add a restart button
+//correct or incorrect after question
+
+
+
 
 function renderInitials() {
     // to store the user's initials (must create a form first)
@@ -47,6 +54,8 @@ function renderInitials() {
  
 
   }
+
+  
   var initials = localStorage.getItem("initials");
   localStorage.setItem("initials", initials);
   localStorage.setItem("score", score)
@@ -85,17 +94,11 @@ var questions = [
 center.textContent = "Click the start button when you are ready. You will have 300 seconds to answer 5 questions."
 countdown.textContent = "Time left: " + seconds + " seconds";
 
-function scoreCount() {
-    score++;
-    console.log(score)
-    score = localStorage.getItem("score");
-
-}
     
 
 function firstQuestion() {
 console.log(questions[0].answers[0].answer)
-answers.style.visibility = "visible"
+possibilities.style.visibility = "visible"
 
 i = 0
     question.textContent = "Question " + questionNum;
@@ -119,23 +122,7 @@ i = 0
         answerC.addEventListener("click", () => {
             minusSeconds();
             secondQuestion();
-            });
-
-        /*answerA.onclick = () => {
-            if (questions[i].answers[0].answer === true) {
-            score++;
-            console.log(score);
-        } else if (questions[i].answers[0].answer === false) {
-            console.log("false")
-        }
-    }
-
-        answerB.onclick = () => {
-            score--;
-            console.log(score)
-
-        }*/
-    
+            });    
     
 }
 
@@ -159,7 +146,7 @@ function secondQuestion(){
                 minusSeconds();
                 thirdQuestion();
                 });
-            answerB.addEventListener("click", () => {
+            answerB.addEventListener("click", (event) => {
                 score++;
                 console.log(score)
 
@@ -202,9 +189,9 @@ function thirdQuestion() {
 
 function endGame() {
     hidden.style.visibility = "hidden";
-    answers.style.visibility = "hidden";
+    possibilities.style.visibility = "hidden";
     displayAllScores.append(hidden)
-    displayAllScores.append(answers)
+    displayAllScores.append(possibilities)
 
     done.textContent = "All done!";
     done.setAttribute("style", "text-align: center; color: black;");
@@ -220,6 +207,7 @@ function endGame() {
 
 
 }
+
 
 function displayScore() {
     done.style.visibility = "hidden"
@@ -246,21 +234,30 @@ function displayScore() {
 
 }
 
+disScore = localStorage.getItem("Display Score")
+
+
 function displayHighScores () {
-    displayInitials = localStorage.setItem("initials", initials);
-    totalScore = localStorage.setItem("score", score);
-    
+    viewHighScores.style.visibility = "hidden";
 
-    displayInitials.style.visibility = "visible";
-    displayTotal.style.visibility = "visible";
-
-    displayInitials.textContent = initials;
-    totalScore.textContent = score
-
-    localStorage.setItem("scores", score);
+    var totalScore = localStorage.getItem("score");
     var initials = localStorage.getItem("initials");
-    localStorage.setItem("initials", initials);
-    localStorage.setItem("score", score)
+    initials = localStorage.setItem("initials", initials);
+    totalScore = localStorage.setItem("score", totalScore)
+
+    restartBtn.style.visibility = "visible"
+
+    //var displayInitials = initials
+    var totalScore = localStorage.setItem("score", score);
+    
+   // highScoreDisplay.textContent = initials + totalScore
+    $("#high-score-display").prepend("<br><hr>" + highScoreDisplay);
+    $("#high-score-display").text(initials + totalScore);
+    $("#restart-button").on("click", firstQuestion);
+
+
+
+
   
 
 }
@@ -359,3 +356,4 @@ submitBtn.addEventListener("click", function(event) {
 renderInitials();
 })
 
+})
