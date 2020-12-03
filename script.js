@@ -129,17 +129,21 @@ i = 0
         answerA.addEventListener("click", () => {
             score++;
             console.log(score)
-
             secondQuestion();
+            $("#correct").text("Correct!");
+
         })
         answerB.addEventListener("click", () => {
             secondQuestion();
             seconds = seconds - 10;
+            $("#correct").text(Wrong!");
+
             });
         answerC.addEventListener("click", () => {
             seconds = seconds - 10;
             secondQuestion();
-            });    
+            $("#correct").text("Wrong!");
+        });    
     
 }
 
@@ -159,26 +163,28 @@ function secondQuestion(){
         answerB.innerHTML = questions[i].answers[1].option; 
         answerC.innerHTML = questions[i].answers[2].option;
 
-        answerA.addEventListener("click", () => {
-            seconds = seconds - 10;
+            answerA.addEventListener("click", (event) => {
+                seconds = seconds - 10;
                 thirdQuestion();
+                $("#correct").text("Wrong!");
+
                 });
             answerB.addEventListener("click", (event) => {
                 score++;
                 console.log(score)
-
+                $("#correct").text("Correct!");
                 thirdQuestion();
                 })
                 
-            answerC.addEventListener("click", () => {
+            answerC.addEventListener("click", (event) => {
                 seconds = seconds - 10;
                 thirdQuestion();
+                $("#correct").text("Wrong!");
+
                 });
-        
-
-
-    
 }
+
+
 
 function thirdQuestion() {
     i = 2;
@@ -190,17 +196,21 @@ function thirdQuestion() {
     answerC.innerHTML = questions[i].answers[2].option;
 
 
-    answerA.addEventListener("click",endGame);
-    answerB.addEventListener("click", () => {
-        score++;
-        console.log(score)
-
+    answerA.addEventListener("click", () => {
+        $("#correct").text("");
         endGame();
     });
-    answerC.addEventListener("click",endGame);
+    answerB.addEventListener("click", () => {
+        score++;
+        console.log(score);
+        endGame();
+        $("#correct").text("");
 
-
-
+    });
+    answerC.addEventListener("click",() => {
+        $("#correct").text("");
+        endGame();
+    });
 }
 
 
@@ -221,8 +231,6 @@ function endGame() {
     countdown.style.visibility = "hidden";
 
     viewScore.addEventListener("click", displayScore)
-
-
 }
 
 
