@@ -22,21 +22,21 @@
     <div class="content">
         <h1 id="title">Coding Quizz</h1>
         <div class="clearfix">
-        <div class="card">
-          <h3>Before you start</h3>
-          <form method="POST">
-            <div class="input-group">
-              <p>
-                <label for="initials">Please enter your initials  </label>
-              <br>
-                <input type="text" name="initials" id="initials" placeholder="AA" />
-              </p>
-            </div>
-            <div id="msg"></div>
-            <button id="submit">Submit</button>
-          </form>
+          <div class="card">
+            <h3>Before you start</h3>
+            <form method="POST">
+              <div class="input-group">
+                <p>
+                  <label for="initials">Please enter your initials  </label>
+                <br>
+                  <input type="text" name="initials" id="initials" placeholder="AA" />
+                </p>
+              </div>
+              <div id="msg"></div>
+              <button id="submit">Submit</button>
+            </form>
+          </div>
         </div>
-
         <div id="hidden">
             <h2 id="question"></h2>
             <h5 id="quizz-text"></h5> 
@@ -44,12 +44,9 @@
                 <div><button type="button" id="answer-a" class="btn btn-warning"></button></div>
                 <div><button type="button" id="answer-b" class="btn btn-warning"></button></div>
                 <div><button type="button" id="answer-c" class="btn btn-warning"></button></div>
-
             </div>  
-            
             <button type="button" id="start" class="btn btn-warning">Start Quizz</button>
-        
-          </div>
+        </div>
 
           <h2 class="text-center" id="correct"></h2>
 
@@ -58,14 +55,14 @@
           <h4 id="done">All done!</h4>
           <div><button type="button" id="view-score" class="btn btn-warning">View Score</button></div>
         </div>
-          <div class="end-stuff" id="display-score">
+          
+        <div class="end-stuff" id="display-score">
           <div><button type="button" id="view-high-scores" class="btn btn-warning">Display High Scores</button></div>
           <div><button type="button" id="restart-button" onClick="refreshPage()" class="btn btn-warning">Restart</button></div>
+        </div>
         
-        </div>
-        </div>
 
-        <ul id="high-scores-display"></ul>
+        <div id="high-scores-display"></div>
 
 
     </div>

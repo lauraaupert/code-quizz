@@ -21,25 +21,27 @@ var done = document.querySelector("#done");
 var displayAllScores = document.querySelector(".end-stuff");
 var viewScore = document.querySelector("#view-score");
 var viewHighScores = document.querySelector("#view-high-scores");
-var initials = localStorage.getItem("initials");
-var totalScore = localStorage.getItem("score");
+//var initials = localStorage.getItem("initials");
+//var totalScore = localStorage.getItem("totalScore");
 var highScoreDisplay = document.querySelector("#high-scores-display");
 var allScores = [];
 var correct = document.querySelector("#correct");
+var restartBtn = document.querySelector("#restart-button");
+var disScore = document.createElement("h4");
 
-hidden.style.visibility = "hidden"
+
+hidden.style.display = "none"
 displayAllScores.style.visibility = "hidden"
-possibilities.style.visibility = "hidden"
-done.style.visibility = "hidden"
-viewScore.style.visibility = "hidden"
-
+possibilities.style.display = "none"
+done.style.display = "none"
+viewScore.style.display = "none"
 
 //add a restart button
 //correct or incorrect after question
 
 
 
-init();
+//init();
 function renderInitials() {
     // to store the user's initials (must create a form first)
 
@@ -56,10 +58,9 @@ function renderInitials() {
 
   }
 
-  
   var initials = localStorage.getItem("initials");
-  localStorage.setItem("initials", initials);
-  localStorage.setItem("score", score)
+  initials = localStorage.setItem("initials", initials);
+  totalScore = localStorage.setItem("totalScore", score)
 
   function setSeconds() {
 
@@ -117,7 +118,7 @@ countdown.textContent = "Time left: " + seconds + " seconds";
 
 function firstQuestion() {
 console.log(questions[0].answers[0].answer)
-possibilities.style.visibility = "visible"
+possibilities.style.display = "block"
 
 i = 0
     question.textContent = "Question " + questionNum;
@@ -153,12 +154,8 @@ i = 0
 
 
 function secondQuestion(){
-
-    //change questions
-
-    //answers.addEventListener("click", function(event) {
-                i = 1;
-                questionNum++;
+        i = 1;
+        questionNum++;
         question.textContent = "Question " + questionNum;
         center.textContent = questions[i].q; 
         answerA.innerHTML = questions[i].answers[0].option; 
@@ -169,7 +166,6 @@ function secondQuestion(){
                 seconds = seconds - 10;
                 thirdQuestion();
                 correct.textContent = "Wrong!";
-
                 });
             answerB.addEventListener("click", (event) => {
                 score++;
@@ -177,12 +173,10 @@ function secondQuestion(){
                 correct.textContent = "Correct!";
                 thirdQuestion();
                 })
-                
             answerC.addEventListener("click", (event) => {
                 seconds = seconds - 10;
                 thirdQuestion();
                 correct.textContent = "Wrong!";
-
                 });
 }
 
@@ -190,13 +184,11 @@ function secondQuestion(){
 
 function thirdQuestion() {
     i = 2;
-
     question.textContent = "Question " + questionNum++;
     center.textContent = questions[i].q; 
     answerA.innerHTML = questions[i].answers[0].option; 
     answerB.innerHTML = questions[i].answers[1].option; 
     answerC.innerHTML = questions[i].answers[2].option;
-
 
     answerA.addEventListener("click", () => {
         correct.textContent = "";
@@ -207,7 +199,6 @@ function thirdQuestion() {
         console.log(score);
         endGame();
         correct.textContent = "";
-
     });
     answerC.addEventListener("click",() => {
         correct.textContent = "";
@@ -215,60 +206,43 @@ function thirdQuestion() {
     });
 }
 
-
 function endGame() {
-    hidden.style.visibility = "hidden";
-    possibilities.style.visibility = "hidden";
-    displayAllScores.append(hidden)
-    displayAllScores.append(possibilities)
-
-    done.textContent = "All done!";
-    done.setAttribute("style", "text-align: center; color: black;");
-
-    //title.append(done);
-    var para = document.createElement("p");
-    done.append(para);
-    viewScore.setAttribute("style", "text-align: center;")
-
-    countdown.style.visibility = "hidden";
-
-    viewScore.addEventListener("click", displayScore)
+    hidden.style.display = "none";
+    possibilities.style.display = "none";
+    done.style.display = "block";
+    countdown.style.display = "none";
+    viewScore.style.display = "block";
 }
-
 
 function displayScore() {
-    done.style.visibility = "hidden"
-    //viewScore.style.visibility = "hidden"
+    done.style.display = "none"
+    viewScore.style.display = "none"
+    displayAllScores.style.visibility = "visible";
+    viewHighScores.style.visibility = "visible";
+
     var initials = localStorage.getItem("initials");
-    localStorage.setItem("initials", initials);
+    localStorage.setItem("initials",initials)
+    localStorage.setItem("totalScore", score)
     var para = document.createElement("p");
     title.append(para);
-    viewScore.style.visibility = "hidden"
-
-    var disScore = document.createElement("h4");
-
-
     title.append(disScore);
     disScore.setAttribute("style", "text-align: center; color: black;");
-    disScore.innerHTML = initials + ": " + score;
-
-    viewHighScores.style.visibility = "visible";
-    viewHighScores.innerHTML = "Display High Scores";
-    
-    viewHighScores.addEventListener("click", displayHighScores());
-    //localStorage.getItem("score")
+    disScore.textContent = initials + ": " + score;
+    disScore = localStorage.getItem("disScore").toString
+    localStorage.setItem("disScore", disScore)
 
 
 }
 
+/*
 function listScores() {
     highScoreDisplay.innerHTML = "";
   
     for (var i = 0; i < allScores.length; i++) {
-        var eachScore = allScores[i];
+        disScore = allScores[i];
     
         var li = document.createElement("li");
-        li.textContent = initials + ": " + eachScore;
+        li.textContent = disScore
         li.setAttribute("data-index", i);
     
         highScoreDisplay.appendChild(li);
@@ -279,11 +253,11 @@ function listScores() {
 function init() {
     // Get stored todos from localStorage
     // Parsing the JSON string to an object
-    var storedScores = (localStorage.getItem("score"));
+    // var storedScores = (localStorage.getItem("score"));
   
     // If todos were retrieved from localStorage, update the todos array to it
-    if (storedScores !== null) {
-      allScores = storedScores;
+    if (totalScore !== null) {
+      allScores = totalScore;
     }
   
     // Render todos to the DOM
@@ -293,61 +267,32 @@ function init() {
   function storeScores() {
     // Stringify and set "todos" key in localStorage to todos array
     localStorage.setItem("score", (allScores));
-  }
+  }*/
 
   
   
 
 function displayHighScores () {
-
-    var displayText = score;
-
-    //todoForm.addEventListener("submit", function(event) {
-       // event.preventDefault();
-      
-        //var todoText = todoInput.value.trim();
-   //highScoreDisplay = initials + allScore[i]
-        // Return from function early if submitted todoText is blank
-        //if (todoText === "") {
-        //  return;
-        //}
-      
-        // Add new todoText to todos array, clear the input
-        allScores.push(totalScore);
-        //todoInput.value = "";
-      
-        // Store updated todos in localStorage, re-render the list
-        storeScores();
-        listScores();
-      };
+        //title.append(disScore);
 
 
+    viewHighScores.style.visibility = "hidden";
 
-
-
-
-/*
-
-
-    //viewHighScores.style.visibility = "hidden";
-
-    var totalScore = localStorage.getItem("score");
+    var totalScore = localStorage.getItem("totalScore");
     var initials = localStorage.getItem("initials");
     initials = localStorage.setItem("initials", initials);
-    totalScore = localStorage.setItem("score", totalScore)
+    totalScore = localStorage.setItem("score", score)
 
-    restartBtn.style.visibility = "visible"
+    restartBtn.style.display = "block"
 
-    //var displayInitials = initials
+    /*//var displayInitials = initials
     var totalScore = localStorage.setItem("score", score);
     var initials = document.querySelector("#initials").value;
-   // highScoreDisplay.textContent = initials + totalScore
-    $("#high-score-display").prepend("<br><hr>" + highScoreDisplay);
-    $("#high-score-display").text(initials + totalScore);
+   // highScoreDisplay.textContent = initials + totalScore*/
 }
 
         //to store the user's score
-        var score = localStorage.getItem("score");
+        //var score = localStorage.getItem("score");
 
 
 /*restartBtn.addEventListener("click",refreshPage());
@@ -406,12 +351,15 @@ submitBtn.addEventListener("click", function(event) {
   if (initials === "") {
     displayMessage("error", "Initials cannot be blank");
   } else {
-    //displayMessage("success", "Registered successfully");
-    hidden.style.visibility = "visible"
+    displayMessage("success", "Registered successfully");
+    hidden.style.display = "block"
   }
   localStorage.setItem("initials", initials);
 
 renderInitials();
 })
+
+viewScore.addEventListener("click", displayScore);
+viewHighScores.addEventListener("click", displayHighScores());
 
 

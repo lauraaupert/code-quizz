@@ -25,14 +25,14 @@
 }
 
 /*Answers*/
-.hovering:hover {
+/*.hovering:hover {
     background-color: black;
     color: white;
     padding: .2cm;
     justify-content: center;
     margin-right: 35%;
     margin-left: 35%;
-}
+}*/
 
 #done {
     margin-top: 40px;
@@ -40,4 +40,5 @@
 
 button {
     margin: 10px;
+    justify-content: center;
 }
