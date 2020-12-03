@@ -22,13 +22,13 @@ var done = document.querySelector("#done");
 var displayAllScores = document.querySelector(".end-stuff");
 var viewScore = document.querySelector("#view-score");
 var viewHighScores = document.querySelector("#view-high-scores");
-var initials = localStorage.getItem("initials");
-var totalScore = localStorage.getItem("score");
+var initials = localStorage.getItem("initials").value;
+var totalScore = localStorage.getItem("score").value;
 var highScoreDisplay = document.querySelector("#high-scores-display");
 var restartBtn = document.querySelector("#restart-button");
 
 hidden.style.visibility = "hidden"
-//displayAllScores.style.visibility = "hidden"
+displayAllScores.style.visibility = "hidden"
 possibilities.style.visibility = "hidden"
 done.style.visibility = "hidden"
 viewScore.style.visibility = "hidden"
@@ -60,10 +60,27 @@ function renderInitials() {
   localStorage.setItem("initials", initials);
   localStorage.setItem("score", score)
 
+  function setSeconds() {
 
-function minusSeconds() {
-    seconds-10;
-}
+    var timerInterval = setInterval(function() {
+        seconds--;
+        countdown.textContent = "Time left: " + seconds + " seconds";
+    
+    
+        if (seconds === 0 || seconds < 0) {
+            clearInterval(timerInterval);
+            center.textContent = "Game Over!";
+            answerA.style.display = "none"
+            answerB.style.display = "none"
+            answerC.style.display = "none"
+            countdown.textContent = "Time left: 0"
+    
+        } 
+        }, 1000);
+     
+    }
+    
+
 var questions = [
     { q: "How do you call a function in Javascript?", 
         answers: [
@@ -116,11 +133,11 @@ i = 0
             secondQuestion();
         })
         answerB.addEventListener("click", () => {
-            minusSeconds();
             secondQuestion();
+            seconds = seconds - 10;
             });
         answerC.addEventListener("click", () => {
-            minusSeconds();
+            seconds = seconds - 10;
             secondQuestion();
             });    
     
@@ -143,7 +160,7 @@ function secondQuestion(){
         answerC.innerHTML = questions[i].answers[2].option;
 
         answerA.addEventListener("click", () => {
-                minusSeconds();
+            seconds = seconds - 10;
                 thirdQuestion();
                 });
             answerB.addEventListener("click", (event) => {
@@ -154,7 +171,7 @@ function secondQuestion(){
                 })
                 
             answerC.addEventListener("click", () => {
-                minusSeconds();
+                seconds = seconds - 10;
                 thirdQuestion();
                 });
         
@@ -249,7 +266,7 @@ function displayHighScores () {
 
     //var displayInitials = initials
     var totalScore = localStorage.setItem("score", score);
-    
+    var initials = document.querySelector("#initials").value;
    // highScoreDisplay.textContent = initials + totalScore
     $("#high-score-display").prepend("<br><hr>" + highScoreDisplay);
     $("#high-score-display").text(initials + totalScore);
@@ -262,24 +279,6 @@ function displayHighScores () {
 
 }
 
-function setSeconds() {
-
-var timerInterval = setInterval(function() {
-    seconds--;
-    countdown.textContent = "Time left: " + seconds + " seconds";
-
-
-    if (seconds === 0) {
-        clearInterval(timerInterval);
-        center.textContent = "Game Over!";
-        answerA.style.display = "none"
-        answerB.style.display = "none"
-        answerC.style.display = "none"
-
-    } 
-}, 1000);
- 
-}
 
         //to store the user's score
         var score = localStorage.getItem("score");
