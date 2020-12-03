@@ -77,7 +77,9 @@ function renderInitials() {
             answerC.style.display = "none"
             countdown.textContent = "Time left: 0"
             correct.textContent = "";
-
+            displayAllScores.style.visibility = "visible";
+            //restartBtn.style.display = "block";
+            question.textContent = "";
         } 
         }, 1000);
      
@@ -273,8 +275,27 @@ function init() {
   
 
 function displayHighScores () {
-        //title.append(disScore);
 
+   /* var displayText = score;
+
+    //todoForm.addEventListener("submit", function(event) {
+       // event.preventDefault();
+      
+        //var todoText = todoInput.value.trim();
+   //highScoreDisplay = initials + allScore[i]
+        // Return from function early if submitted todoText is blank
+        //if (todoText === "") {
+        //  return;
+        //}
+      
+        // Add new todoText to todos array, clear the input
+        allScores.push(totalScore);
+        //todoInput.value = "";
+      
+        // Store updated todos in localStorage, re-render the list
+        storeScores();
+        listScores();
+      };*/
 
     viewHighScores.style.visibility = "hidden";
 
@@ -291,62 +312,28 @@ function displayHighScores () {
    // highScoreDisplay.textContent = initials + totalScore*/
 }
 
-        //to store the user's score
-        //var score = localStorage.getItem("score");
-
-
-/*restartBtn.addEventListener("click",refreshPage());
-function refreshPage(event){
-    window.location.reload();
-}*/
-
-
-start.addEventListener("click", function() {
-    firstQuestion()
-    setSeconds()
-    // hide start button
-    start.style.display = "none"
-    
-    
-
-
-
-})
-
  function displayMessage(type, message) {
     msgDiv.textContent = message;
     msgDiv.setAttribute("class", type);
   }
   
-  
   function renderInitials() {
     // to store the user's initials (must create a form first)
        var initials = localStorage.getItem("initials");
-
+       localStorage.setItem("initials", initials);
        if (!initials) {
            return;
        }
 
     question.textContent = "Welcome " + initials + "!"
-    form.style.display = "block"
     form.style.display = "none"
- 
-
   }
 
-    localStorage.setItem("initials", initials);
-
-    //then use a concat to display initials and scores
-    //+ " scored " + score
-    
-    //renderInitials()
 
 
 submitBtn.addEventListener("click", function(event) {
     event.preventDefault();
     var initials = document.querySelector("#initials").value;
-
-   
 
   if (initials === "") {
     displayMessage("error", "Initials cannot be blank");
@@ -361,5 +348,11 @@ renderInitials();
 
 viewScore.addEventListener("click", displayScore);
 viewHighScores.addEventListener("click", displayHighScores());
+start.addEventListener("click", function() {
+    firstQuestion()
+    setSeconds()
+    start.style.display = "none"
+})
+
 
 
