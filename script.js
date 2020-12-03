@@ -74,7 +74,8 @@ function renderInitials() {
             answerB.style.display = "none"
             answerC.style.display = "none"
             countdown.textContent = "Time left: 0"
-    
+            $("#correct").text("");
+
         } 
         }, 1000);
      
@@ -136,7 +137,7 @@ i = 0
         answerB.addEventListener("click", () => {
             secondQuestion();
             seconds = seconds - 10;
-            $("#correct").text(Wrong!");
+            $("#correct").text("Wrong!");
 
             });
         answerC.addEventListener("click", () => {
@@ -278,22 +279,16 @@ function displayHighScores () {
    // highScoreDisplay.textContent = initials + totalScore
     $("#high-score-display").prepend("<br><hr>" + highScoreDisplay);
     $("#high-score-display").text(initials + totalScore);
-    $("#restart-button").on("click", firstQuestion);
-
-
-
-
-  
-
 }
-
 
         //to store the user's score
         var score = localStorage.getItem("score");
 
 
-
-
+/*restartBtn.addEventListener("click",refreshPage());
+function refreshPage(event){
+    window.location.reload();
+}*/
 
 
 start.addEventListener("click", function() {

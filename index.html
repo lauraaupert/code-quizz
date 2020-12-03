@@ -62,7 +62,8 @@
         </div>
           <div class="end-stuff" id="display-score">
           <div><button type="button" id="view-high-scores" class="btn btn-warning">Display High Scores</button></div>
-          <div><button type="button" id="restart-button" class="btn btn-warning">Restart</button></div>
+          <div><button type="button" id="restart-button" onClick="refreshPage()" class="btn btn-warning">Restart</button></div>
+        
         </div>
         </div>
 
@@ -70,7 +71,11 @@
 
 
     </div>
-
+  <script>
+            function refreshPage(){
+                window.location.reload();
+            } 
+            </script>
 
     <script src="./script.js"></script>
 </body>
