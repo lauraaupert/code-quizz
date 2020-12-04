@@ -1,5 +1,3 @@
-
-
 var countdown = document.querySelector("#countdown");
 var highScores = document.querySelector("#high-scores");
 var button = document.getElementById("#start");
@@ -32,31 +30,10 @@ var disScore = document.createElement("h4");
 
 hidden.style.display = "none"
 displayAllScores.style.visibility = "hidden"
+restartBtn.style.visibility = "hidden"
 possibilities.style.display = "none"
 done.style.display = "none"
-viewScore.style.display = "none"
-
-//add a restart button
-//correct or incorrect after question
-
-
-
-//init();
-function renderInitials() {
-    // to store the user's initials (must create a form first)
-
-       var initials = localStorage.getItem("initials");
-
-       if (!initials) {
-           return;
-       }
-
-    question.textContent = "Welcome " + initials + "!"
-    form.style.display = "block"
-    form.style.display = "none"
- 
-
-  }
+viewScore.style.visibility = "hidden"
 
   var initials = localStorage.getItem("initials");
   initials = localStorage.setItem("initials", initials);
@@ -78,7 +55,6 @@ function renderInitials() {
             countdown.textContent = "Time left: 0"
             correct.textContent = "";
             displayAllScores.style.visibility = "visible";
-            //restartBtn.style.display = "block";
             question.textContent = "";
         } 
         }, 1000);
@@ -152,9 +128,6 @@ i = 0
     
 }
 
-
-
-
 function secondQuestion(){
         i = 1;
         questionNum++;
@@ -181,8 +154,6 @@ function secondQuestion(){
                 correct.textContent = "Wrong!";
                 });
 }
-
-
 
 function thirdQuestion() {
     i = 2;
@@ -213,7 +184,7 @@ function endGame() {
     possibilities.style.display = "none";
     done.style.display = "block";
     countdown.style.display = "none";
-    viewScore.style.display = "block";
+    viewScore.style.visibility = "visible";
 }
 
 function displayScore() {
@@ -232,8 +203,6 @@ function displayScore() {
     disScore.textContent = initials + ": " + score;
     disScore = localStorage.getItem("disScore").toString
     localStorage.setItem("disScore", disScore)
-
-
 }
 
 /*
@@ -253,16 +222,12 @@ function listScores() {
 }
 
 function init() {
-    // Get stored todos from localStorage
-    // Parsing the JSON string to an object
     // var storedScores = (localStorage.getItem("score"));
   
-    // If todos were retrieved from localStorage, update the todos array to it
     if (totalScore !== null) {
       allScores = totalScore;
     }
   
-    // Render todos to the DOM
     listScores();
   }
 
@@ -304,12 +269,7 @@ function displayHighScores () {
     initials = localStorage.setItem("initials", initials);
     totalScore = localStorage.setItem("score", score)
 
-    restartBtn.style.display = "block"
-
-    /*//var displayInitials = initials
-    var totalScore = localStorage.setItem("score", score);
-    var initials = document.querySelector("#initials").value;
-   // highScoreDisplay.textContent = initials + totalScore*/
+    restartBtn.style.visibility = "visible"
 }
 
  function displayMessage(type, message) {
@@ -326,10 +286,10 @@ function displayHighScores () {
        }
 
     question.textContent = "Welcome " + initials + "!"
-    form.style.display = "none"
-  }
-
-
+    setTimeout(function() {
+        form.style.display = "none"
+    },2000);
+  };
 
 submitBtn.addEventListener("click", function(event) {
     event.preventDefault();
@@ -343,8 +303,8 @@ submitBtn.addEventListener("click", function(event) {
   }
   localStorage.setItem("initials", initials);
 
-renderInitials();
-})
+  renderInitials();
+});
 
 viewScore.addEventListener("click", displayScore);
 viewHighScores.addEventListener("click", displayHighScores());
